@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Auth } from "./auth";
-import { PrivateRoutes } from "./privateRoutes";
 import { Home } from "./views/home";
 import { Login } from "./views/login";
 import { Register } from "./views/register";

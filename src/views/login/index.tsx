@@ -5,6 +5,8 @@ import LogoDark from '../../assets/svg/TechOrder-logo-horizontal-dark.svg'
 import { useLocal } from "../../context/local"
 import { dark } from "../../styles/themes"
 import { useNavigate } from "react-router-dom"
+import { InputLabel } from "../../components/inputs/inputWithLabel"
+import { ButtonMain } from "../../styles/buttons"
 
 export const Login : FC = () => {
 
@@ -40,25 +42,21 @@ export const Login : FC = () => {
                     <h4>Send requests was never so easy!</h4>
                 </header>
                 <form>
-                    <section id="username-section">
-                        <label className={username !== '' ? 'outside' : undefined}> 
-                            Username or Email
-                        </label>
-                        <input type={'text'} ref={usernameRef}
-                        value={username} onChange={e => setUsername(e.target.value)} />
-                    </section>
-                    <section id="password-section">
-                        <label className={password !== '' ? 'outside' : undefined}>
-                            Password
-                        </label>
-                        <input type={'password'}
-                        value={password} onChange={e => setPassword(e.target.value)} />
-                    </section>
+                    <InputLabel 
+                    label="Username or Email" 
+                    type={'text'} 
+                    state={{get:username,set:setUsername}} 
+                    />
+                    <InputLabel 
+                    label="Password" 
+                    type={'password'} 
+                    state={{get:password,set:setPassword}} 
+                    />
                     <section id="keep-connected-section">
                         <label htmlFor="keep-connected">Keep me connected</label>
                         <input id="keep-connected" type={'checkbox'} />
                     </section>
-                    <button type="submit">SIGN IN</button>
+                    <ButtonMain>SIGN IN</ButtonMain>
                 </form>
                 <footer>
                     <p>New user? <a href="#" onClick={openRegister}>Register here</a></p>
