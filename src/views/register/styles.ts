@@ -12,9 +12,9 @@ export const Container = styled.div`
   width: 100vw;
 
   .container {
-    background-color: ${(props: any) => props.theme.font};
+    background-color: ${(props: any) => props.theme.text};
     border-radius: 10px;
-    max-height: min(80%, 600px);
+    max-height: min(90%, 600px);
     overflow: auto;
     padding: 40px 20px;
     width: min(80%, 500px);

@@ -10,7 +10,7 @@ import { ButtonMain } from "../../styles/buttons"
 
 export const Login : FC = () => {
 
-    const [username, setUsername] = useState<string>('')
+    const [name, setName] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const {theme} = useLocal()
     
@@ -27,7 +27,7 @@ export const Login : FC = () => {
             let interval = setInterval(() => {
                 if(usernameRef.current){
                     console.log(usernameRef.current.value)
-                    setUsername(usernameRef.current.value)
+                    setName(usernameRef.current.value)
                     clearInterval(interval)
                 }
             }, 100)
@@ -43,13 +43,16 @@ export const Login : FC = () => {
                 </header>
                 <form>
                     <InputLabel 
-                    label="Username or Email" 
+                    label={`Email/${navigator.language === 'pt-BR' ? 'CPF/CNPJ' : 'SSN'}`} 
                     type={'text'} 
-                    state={{get:username,set:setUsername}} 
+                    autoFocus={true}
+                    required={true}
+                    state={{get:name,set:setName}} 
                     />
                     <InputLabel 
                     label="Password" 
                     type={'password'} 
+                    required={true}
                     state={{get:password,set:setPassword}} 
                     />
                     <section id="keep-connected-section">

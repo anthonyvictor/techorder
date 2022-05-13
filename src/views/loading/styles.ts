@@ -10,7 +10,7 @@ export const Container = styled.header`
     align-items: center;
     
     .loader{
-    border: 16px solid ${(props: any) => props.theme.font};
+    border: 16px solid ${(props: any) => props.theme.text};
     border-top: 16px solid ${(props: any) => props.theme.primary};
     border-radius: 50%;
     width: 120px;

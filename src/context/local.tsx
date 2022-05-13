@@ -31,7 +31,7 @@ export const LocalProvider: FC<Props> = ({children}) => {
                 return Themes.dark
             }
         }else{
-            return Themes.dark
+            return Themes.light
         }
     }
 

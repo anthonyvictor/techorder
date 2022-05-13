@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Auth } from "./auth";
 import { ApiProvider } from "./context/api";
+import { UserProvider } from "./context/controllers/user";
 import { LocalProvider, useLocal } from "./context/local";
 import { MyRoutes } from "./routes";
 import { GlobalStyle } from "./styles/globals";
@@ -21,8 +22,10 @@ const App2 = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <ApiProvider>
-          <Auth />
-          <MyRoutes />
+          <UserProvider>
+            <Auth />
+            <MyRoutes />
+          </UserProvider>
         </ApiProvider>
       </BrowserRouter>
       <GlobalStyle />

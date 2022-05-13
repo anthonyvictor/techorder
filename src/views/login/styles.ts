@@ -16,7 +16,7 @@ export const Container = styled.div`
   }
   
   .container {
-      background-color: ${(props: any) => props.theme.font};
+      background-color: ${(props: any) => props.theme.text};
       border-radius: 10px;
       max-height: min(80%, 600px);
       min-height: 400px;
@@ -42,6 +42,10 @@ export const Container = styled.div`
       gap: 20px;
       width: 100%;
       margin-bottom: ${marginSections};
+
+      > section{
+        *{color: ${props => props.theme.back};}
+      }
 
       #keep-connected-section {
         display: flex;
