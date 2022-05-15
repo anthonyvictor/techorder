@@ -9,6 +9,9 @@ export const GlobalStyle = createGlobalStyle`
         font-family: inherit;
         font-size: inherit;
     }
+    a{
+        color: ${props => props.theme.primary};
+    }
     button{
         border: none;
         cursor: pointer;

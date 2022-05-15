@@ -1,5 +1,6 @@
 import { createContext, FC, ReactNode, useContext, useState } from "react";
 import * as Themes from "../styles/themes";
+import { Theme } from "../types/theme";
 
 interface ILocalContext{
     token: string | null
@@ -16,22 +17,20 @@ type Props = {
 
 export const LocalProvider: FC<Props> = ({children}) => {
     const [token, _setToken] = useState<string | null>( getLocalToken() )
-    const [theme, _setTheme] = useState<Themes.Theme>( getLocalTheme() )
+    const [theme, _setTheme] = useState<Theme>( getLocalTheme() )
 
     function getLocalToken() : string | null {
         return localStorage.getItem('token')
     }
 
-    function getLocalTheme() : Themes.Theme {
+    function getLocalTheme() : Theme {
         const localTheme = localStorage.getItem('theme')
-        if(localTheme && localTheme !== ''){
-            try{
+        try{
+            if(localTheme && localTheme !== ''){
                 return  Themes[localTheme as keyof typeof Themes]
-            }catch{
-                return Themes.dark
-            }
-        }else{
-            return Themes.light
+            }else throw new Error()
+        }catch{
+            return Themes.panni
         }
     }
 

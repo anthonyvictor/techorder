@@ -1,9 +1,13 @@
-import React, { createRef, FC, useState } from "react"
+import React, { createRef, FC, useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { InputLabel } from "../../components/inputs/inputWithLabel"
 import { Container } from "./styles"
 import { ButtonMain } from "../../styles/buttons"
 import { useUser } from "../../context/controllers/user"
+import { InitialContainer } from "../../components/containers/initialContainer"
+import { LoginRegisterContainer } from "../../components/containers/loginRegisterContainer"
+import backImg from '../../assets/images/register-background.jpg'
+import { removeAccents } from "../../util/misc"
 
 export const Register : FC = () => {
 
@@ -22,6 +26,16 @@ export const Register : FC = () => {
     const userContext = useUser()
 
     const navigate = useNavigate()
+
+    const blockReload = useCallback((e:any) => {
+        e.preventDefault()
+        e.returnValue = ''
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener('beforeunload', blockReload)
+        return () => window.removeEventListener('beforeunload', blockReload)
+    }, [])
 
     function openLogin(e: React.MouseEvent<HTMLElement>){
         e.preventDefault()
@@ -42,10 +56,11 @@ export const Register : FC = () => {
         let r = false
         const s = (t:string) => setNameInvalid(t)
         const value = name
+        const valueNoAcc = removeAccents(value)
 
         if(value.replace(' ', '') === '') {
             s('Please, insert a valid name')
-        }else if((value.match(/[^a-zA-Z]/)?.length ?? 0) > 0){
+        }else if((valueNoAcc.match(/[^a-zA-Z\s]/ig)?.length ?? 0) > 0){
             s('Only alphabetically characters are allowed')
         }else if(value.replace(' ', '').length < 5){
             s('Username must have minimum 5 characters')
@@ -75,16 +90,13 @@ export const Register : FC = () => {
     }
 
     function validRegistry(){
-
-
-        
         let r = false
         const s = (t:string) => setRegistryInvalid(t)
         const value = registry
 
         if(value.replace(' ', '') === '') {
             s(`Please, insert a valid ${navigator.language === 'pt-BR' ? 'CPF/CNPJ' : 'SSR'} number`)
-        }else if( navigator.language === 'pt-BR' && value.length !== (11 | 14) ){
+        }else if( navigator.language === 'pt-BR' && value.length !== 11 && value.length !== 14 ){
             s('CPF is not valid!')
         }else if( navigator.language !== 'pt-BR' && value.length !== 8){
             s('SSN is not valid!')
@@ -98,13 +110,18 @@ export const Register : FC = () => {
     }
 
     function validPassword(){
-        if(confirmPassword !== password){
-            setConfirmPasswordInvalid("Passwords doesn't match!")
-            return false
+        let r = false
+        const containLower = password.match(/[a-z]/g)?.length ?? 0
+        const containUpper = password.match(/[A-Z]/g)?.length ?? 0
+        const containNumber = password.match(/[0-9]/g)?.length ?? 0
+
+        if(containLower === 0 || containUpper === 0 || containNumber === 0){
+            setPasswordInvalid("Password must contains at least 8 characters, being uppercase and lowercase letters and numbers!")
         }else{
-            setConfirmPasswordInvalid("")
-            return true
+            setPasswordInvalid("")
+            r = true
         }
+        return r
     }
 
     function validConfirmPassword(){
@@ -152,10 +169,11 @@ export const Register : FC = () => {
         }
     }
     return (
-        <Container className="view">
-            <div className="container">
-                <header>
-                    <h4>Register now to start send requests today!</h4>
+        <LoginRegisterContainer className="view">
+
+            <InitialContainer>
+            <header>
+                    <h4>Register now to start send requests!</h4>
                 </header>
                 <form onSubmit={submitRegister}>
                         <InputLabel 
@@ -205,9 +223,9 @@ export const Register : FC = () => {
                     <ButtonMain type="submit" onClick={submitRegister}>REGISTER</ButtonMain>
                 </form>
                 <footer>
-                    <p>Already have an account? <a href="#" onClick={openLogin}>Sign in</a></p>
+                    <p>Already have an account? <a href="/login" onClick={openLogin}>Sign in</a></p>
                 </footer>
-            </div>
-        </Container>
+            </InitialContainer>
+</LoginRegisterContainer>
     )
 }

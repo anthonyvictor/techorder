@@ -1,29 +1,41 @@
-export type Theme = {
-    back: string, 
-    container : string
-    text : string
-    primary : string
-    ok : string
-    error : string
-    info : string
+import { Theme } from "../types/theme"
 
-}
 
-export const dark: Theme ={
-    back: '#e6e6e6',
-    container: '#b3b3b3',
+export const limiar: Theme ={
+    back: '#08c450',
+    container: '#ecf0f1',
     text: '#13151a',
-    primary: '#16c0f0',
+    primary: '#2a55bf',
     ok: '#08c450',
     error: '#f02f11',
     info: '#fcde44'
 }
 
-export const light: Theme = { 
-    back: '#13151a',
-    container: '#1e2129',
-    text: '#e6e6e6',
+export const panni: Theme ={
+    back: '#e68b0e',
+    container: '#ecf0f1',
+    text: '#13151a',
     primary: '#2a55bf',
+    ok: '#08c450',
+    error: '#f02f11',
+    info: '#fcde44'
+}
+
+export const light: Theme ={
+    back: '#3498db',
+    container: '#ecf0f1',
+    text: '#13151a',
+    primary: '#2a55bf',
+    ok: '#08c450',
+    error: '#f02f11',
+    info: '#fcde44'
+}
+
+export const dark: Theme = { 
+    back: '#13151a',
+    container: '#30333d',
+    text: '#e6e6e6',
+    primary: '#16c0f0',
     ok: '#0c3d09',
     error: '#911300',
     info: '#e6bd2c'

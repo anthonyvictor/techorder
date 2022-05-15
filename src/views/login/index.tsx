@@ -1,18 +1,16 @@
-import { createRef, FC, useEffect, useRef, useState } from "react"
-import { Container } from "./styles"
-import LogoLight from '../../assets/svg/TechOrder-logo-horizontal-light.svg'
-import LogoDark from '../../assets/svg/TechOrder-logo-horizontal-dark.svg'
-import { useLocal } from "../../context/local"
-import { dark } from "../../styles/themes"
+import { createRef, FC, useEffect, useState } from "react"
+
 import { useNavigate } from "react-router-dom"
 import { InputLabel } from "../../components/inputs/inputWithLabel"
 import { ButtonMain } from "../../styles/buttons"
+import { InitialContainer } from "../../components/containers/initialContainer"
+import { LoginRegisterContainer } from "../../components/containers/loginRegisterContainer"
+import enterpriseLogo from '../../assets/images/enterprise-logo.png'
 
 export const Login : FC = () => {
 
     const [name, setName] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const {theme} = useLocal()
     
     const navigate = useNavigate()
     const usernameRef = createRef<HTMLInputElement>()
@@ -35,15 +33,15 @@ export const Login : FC = () => {
     }, 500);
 
     return (
-        <Container className="view">
-            <div className="container">
-                <header>
-                    <img src={theme === dark ? LogoDark : LogoLight} />
+        <LoginRegisterContainer className="view">
+            <InitialContainer>
+            <header>
+                    <img src={enterpriseLogo} />
                     <h4>Send requests was never so easy!</h4>
                 </header>
                 <form>
                     <InputLabel 
-                    label={`Email/${navigator.language === 'pt-BR' ? 'CPF/CNPJ' : 'SSN'}`} 
+                    label={`Username, Email or ${navigator.language === 'pt-BR' ? 'CPF/CNPJ' : 'SSN'}`} 
                     type={'text'} 
                     autoFocus={true}
                     required={true}
@@ -55,6 +53,7 @@ export const Login : FC = () => {
                     required={true}
                     state={{get:password,set:setPassword}} 
                     />
+                    <small id="testpurpose">For test purposes, please type <cite>"User01"</cite> for username and password</small>
                     <section id="keep-connected-section">
                         <label htmlFor="keep-connected">Keep me connected</label>
                         <input id="keep-connected" type={'checkbox'} />
@@ -62,9 +61,10 @@ export const Login : FC = () => {
                     <ButtonMain>SIGN IN</ButtonMain>
                 </form>
                 <footer>
-                    <p>New user? <a href="#" onClick={openRegister}>Register here</a></p>
+                    <p>New user? <a href="/register" onClick={openRegister}>Register here</a></p>
                 </footer>
-            </div>
-        </Container>
+            </InitialContainer>
+        
+                    </LoginRegisterContainer>
     )
 }
