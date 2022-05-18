@@ -3,8 +3,9 @@ import { FC } from "react"
 export const Home : FC = () => {
 
     return (
-        <div className="view">
+        <div className="a">
             <h1>Home</h1>
+            <p>FOdaseeeee</p>
         </div>
     )
 }

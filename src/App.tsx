@@ -20,14 +20,13 @@ const App2 = () => {
   const { theme } = useLocal();
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
         <ApiProvider>
           <UserProvider>
-            <Auth />
-            <MyRoutes />
+            <BrowserRouter>
+              <MyRoutes />
+            </BrowserRouter>
           </UserProvider>
         </ApiProvider>
-      </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>
   );

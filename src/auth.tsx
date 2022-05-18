@@ -1,42 +1,44 @@
 import { FC, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import { useApi } from "./context/api"
 import { useLocal } from "./context/local"
 import { Loading } from "./views/loading"
 
 export const Auth: FC = () => {
-    const {auth} = useApi()
-    const {token, setToken} = useLocal()
-    const [isLoading, setIsLoading] = useState(true)
-    const { theme } = useLocal()
+    const { token } = useLocal()
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const { api } = useApi()
 
     useEffect(() => {
-        let montado = true
+        let mounted = true
+        let timer : number
         
         async function tryToken() {
-            setIsLoading(true)
-            if(token && token !== ''){
-                const response = await auth(token)
+            try{
+                if(!token || token === '') throw new Error('No token given') 
+                    
+                setIsLoading(true)
+                    console.log('entrou auth')
+                const response = await api().get('auth')
+                    
                 setIsLoading(false)
-                if(response){
-                    setToken(response)
-                    navigate('/home')
-                }else{
-                    setToken(null)
-                    navigate('/login')
-                }
-            }else{
-                setIsLoading(false)
-                navigate('/login')
+                    
+                if(response.status !== 200) throw new Error('Failed to login')
+                    
+                navigate('/home')
+
+            }catch(err){
+                navigate('/login') 
             }
         }
         
         tryToken()
-        return () => {montado = false}
-    }, [])
-
+        return () => {
+            mounted = false
+            clearTimeout(timer)
+        }
+    }, [token])
     
-
-    return (isLoading ? <Loading /> : <></>)
+    return isLoading ? <Loading /> : <Outlet />
   }

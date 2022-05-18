@@ -18,5 +18,4 @@ export const LoginRegisterContainerStyle = styled.div`
     color: ${props => props.theme.text};
     user-select: none;
   }
-
 `

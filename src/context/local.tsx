@@ -38,8 +38,7 @@ export const LocalProvider: FC<Props> = ({children}) => {
         localStorage.setItem('token', newToken ?? '')
         _setToken(newToken)
     }
-    function setTheme(newTheme: Themes.Theme | null) {
-            console.log(typeof newTheme, newTheme)
+    function setTheme(newTheme: Theme | null) {
         // localStorage.setItem('theme', typeof newTheme ?? '')
         // _setTheme(newTheme)
     }

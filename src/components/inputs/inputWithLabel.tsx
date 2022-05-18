@@ -19,9 +19,11 @@ type Props = {
 };
 
 const InputLabel2: FC<Props> = (props) => {
+
    const {label, type, state, myRef, invalid, 
     autoFocus, required, caseConvert, validKeys, 
     maxLen, min, max, blur} = props
+
   const handleKeyUp = (e: any) => {
     if(e.key !== 'Enter' && (!validKeys || (e.key.match(validKeys)?.length ?? 0) > 0)){
       setTimeout(() => {
@@ -77,7 +79,8 @@ const InputLabel2: FC<Props> = (props) => {
 function areEqual(prevProps : Props, nextProps : Props){
     const equal = 
     (prevProps.state.get ?? '') === (nextProps.state.get ?? '') &&
-    (prevProps.invalid?.get ?? '') === (nextProps.invalid?.get ?? '')
+    (prevProps.invalid?.get ?? '') === (nextProps.invalid?.get ?? '') &&
+    (prevProps.myRef?.current === nextProps.myRef?.current)
     return equal
 }
 

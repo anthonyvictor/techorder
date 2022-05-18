@@ -42,6 +42,22 @@ export const InitialContainerStyle = styled.main`
         gap: 5px;
       }
 
+      
+      &.disabled{
+        *{pointer-events: none;}
+      }
+
+      #you-are-section {
+        *{
+          pointer-events: fill;
+          margin-right: 5px;
+        }
+        display: flex;
+        gap: 10px;
+      }
+  
+
+
     }
 
     footer {

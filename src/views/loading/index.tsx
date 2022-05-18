@@ -1,10 +1,11 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
+import { Container } from "./styles"
 
 export const Loading : FC = () => {
-
+    useEffect(() => {console.log('renderizou')}, [])
     return (
-        <header className="loading-page">
+        <Container className="loading-page">
             <div className="loader" />
-        </header>
+        </Container>
     )
 }

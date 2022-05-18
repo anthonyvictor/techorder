@@ -24,6 +24,7 @@ export const Register : FC = () => {
     const [registryInvalid, setRegistryInvalid] = useState<string>('')
     
     const userContext = useUser()
+    const nameRef = createRef<HTMLInputElement>()
 
     const navigate = useNavigate()
 
@@ -36,6 +37,12 @@ export const Register : FC = () => {
         window.addEventListener('beforeunload', blockReload)
         return () => window.removeEventListener('beforeunload', blockReload)
     }, [])
+
+    const [youAre, setYouAre] = useState('')
+
+    useEffect(() => {
+        if(youAre !== '') nameRef?.current?.focus()
+    }, [youAre])
 
     function openLogin(e: React.MouseEvent<HTMLElement>){
         e.preventDefault()
@@ -168,6 +175,7 @@ export const Register : FC = () => {
             alert('Passou')
         }
     }
+
     return (
         <LoginRegisterContainer className="view">
 
@@ -175,15 +183,33 @@ export const Register : FC = () => {
             <header>
                     <h4>Register now to start send requests!</h4>
                 </header>
-                <form onSubmit={submitRegister}>
+                <form onSubmit={submitRegister} 
+                className={youAre === '' ? `disabled` : undefined} >
+                  
+                        <section id="you-are-section">
+                            <span>
+                                <input id={'person'} type={'radio'} 
+                                checked={youAre === 'person'} 
+                                onChange={e => e.target.checked && setYouAre('person')} />
+                                <label htmlFor="person">Pessoa física</label>
+                            </span>
+                            <span>
+                                <input id={'enterprise'} type={'radio'} 
+                                checked={youAre === 'enterprise'} 
+                                onChange={e => e.target.checked && setYouAre('enterprise')} />
+                                <label htmlFor="enterprise">Pessoa jurídica</label>
+                            </span>
+                        </section>
+              
                         <InputLabel 
-                        label="Name/Company" 
+                        label="Nome/Empresa" 
                         type='text' 
-                        autoFocus={true}
+                        autoFocus={youAre !== ''}
                         required={true}
                         state={{get:name, set:setName}} 
                         invalid={{get:nameInvalid, set:setNameInvalid}}
                         caseConvert='upper'
+                        myRef={nameRef}
                         />
                         <InputLabel 
                         label="Email" 
@@ -195,14 +221,14 @@ export const Register : FC = () => {
                         caseConvert='lower'
                         />
                         <InputLabel 
-                        label="Password" 
+                        label="Senha" 
                         type='password' 
                         required={true}
                         state={{get:password, set:setPassword}} 
                         invalid={{get:passwordInvalid, set:setPasswordInvalid}}
                         />
                         <InputLabel 
-                        label="Confirm your password" 
+                        label="Confirme sua senha" 
                         type='password'
                         required={true}
                         state={{get:confirmPassword, set:setConfirmPassword}}
@@ -210,7 +236,7 @@ export const Register : FC = () => {
                         />
 
                         <InputLabel 
-                        label={navigator.language === 'pt-BR' ? 'CPF/CNPJ' : 'SSN'}
+                        label={navigator.language === 'pt-BR' ? 'CPF/CNPJ Matriz' : 'SSN'}
                         type='tel'
                         maxLen={14}
                         validKeys={/[0-9]/}

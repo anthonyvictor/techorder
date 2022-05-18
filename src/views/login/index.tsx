@@ -6,11 +6,15 @@ import { ButtonMain } from "../../styles/buttons"
 import { InitialContainer } from "../../components/containers/initialContainer"
 import { LoginRegisterContainer } from "../../components/containers/loginRegisterContainer"
 import enterpriseLogo from '../../assets/images/enterprise-logo.png'
+import { useApi } from "../../context/api"
+import { useLocal } from "../../context/local"
 
 export const Login : FC = () => {
-
+    
     const [name, setName] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const { api} = useApi()
+    const {setToken} = useLocal()
     
     const navigate = useNavigate()
     const usernameRef = createRef<HTMLInputElement>()
@@ -24,13 +28,37 @@ export const Login : FC = () => {
         if(usernameRef.current?.matches(':-internal-autofill-selected')){
             let interval = setInterval(() => {
                 if(usernameRef.current){
-                    console.log(usernameRef.current.value)
                     setName(usernameRef.current.value)
                     clearInterval(interval)
                 }
             }, 100)
         }
     }, 500);
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>){
+        event.preventDefault()
+        const newToken = await login(name, password)
+        if(newToken && newToken !== ''){
+            setToken(newToken)
+        }
+        
+    }
+    /**
+     * Returns a new token if credentials are correct 
+     * */
+    async function login(user: string, password: string) : Promise<string | null> {
+        const payload = {user, password}
+        const response = await api().post('login', payload)
+        if(response.status === 201){
+            const newToken = response.data
+            console.log(newToken)
+            if(newToken && newToken !== ''){
+                return newToken
+            }
+        } 
+        //login: (user: string, password: string) => Promise<Object>
+        return null
+    }
 
     return (
         <LoginRegisterContainer className="view">
@@ -39,7 +67,7 @@ export const Login : FC = () => {
                     <img src={enterpriseLogo} />
                     <h4>Send requests was never so easy!</h4>
                 </header>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <InputLabel 
                     label={`Username, Email or ${navigator.language === 'pt-BR' ? 'CPF/CNPJ' : 'SSN'}`} 
                     type={'text'} 
@@ -53,12 +81,12 @@ export const Login : FC = () => {
                     required={true}
                     state={{get:password,set:setPassword}} 
                     />
-                    <small id="testpurpose">For test purposes, please type <cite>"User01"</cite> for username and password</small>
+                    <small id="testpurpose">For test purposes, please type <cite>"John01" or "Panni01"</cite> for username and password</small>
                     <section id="keep-connected-section">
                         <label htmlFor="keep-connected">Keep me connected</label>
                         <input id="keep-connected" type={'checkbox'} />
                     </section>
-                    <ButtonMain>SIGN IN</ButtonMain>
+                    <ButtonMain type="submit">SIGN IN</ButtonMain>
                 </form>
                 <footer>
                     <p>New user? <a href="/register" onClick={openRegister}>Register here</a></p>

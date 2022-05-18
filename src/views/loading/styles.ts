@@ -11,7 +11,7 @@ export const Container = styled.header`
     
     .loader{
     border: 16px solid ${(props: any) => props.theme.text};
-    border-top: 16px solid ${(props: any) => props.theme.primary};
+    border-top: 16px solid ${(props: any) => props.theme.back};
     border-radius: 50%;
     width: 120px;
     height: 120px;
