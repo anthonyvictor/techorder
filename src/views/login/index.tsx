@@ -43,20 +43,16 @@ export const Login : FC = () => {
         }
         
     }
-    /**
-     * Returns a new token if credentials are correct 
-     * */
+
     async function login(user: string, password: string) : Promise<string | null> {
-        const payload = {user, password}
-        const response = await api().post('login', payload)
-        if(response.status === 201){
+        const payload = {user, pwd: btoa(password)}
+        const response = await api().post('auth', payload)
+        if(response.status === 200){
             const newToken = response.data
-            console.log(newToken)
             if(newToken && newToken !== ''){
                 return newToken
             }
         } 
-        //login: (user: string, password: string) => Promise<Object>
         return null
     }
 

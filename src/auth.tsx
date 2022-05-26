@@ -19,7 +19,6 @@ export const Auth: FC = () => {
                 if(!token || token === '') throw new Error('No token given') 
                     
                 setIsLoading(true)
-                    console.log('entrou auth')
                 const response = await api().get('auth')
                     
                 setIsLoading(false)

@@ -30,7 +30,7 @@ export const LocalProvider: FC<Props> = ({children}) => {
                 return  Themes[localTheme as keyof typeof Themes]
             }else throw new Error()
         }catch{
-            return Themes.panni
+            return Themes.limiar
         }
     }
 

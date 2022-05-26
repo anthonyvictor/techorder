@@ -14,7 +14,7 @@ const ApiContext = createContext({} as IApiContext)
 export const ApiProvider : FC<Props> = ({children}) => {
     const { token } = useLocal()
     
-    const api = (timeoutMs : number = 10) => {
+    const api = (timeoutMs : number = 5) => {
         return axios.create({
             baseURL: import.meta.env.VITE_API_URL,
             headers: token ? {token: token} : undefined,
