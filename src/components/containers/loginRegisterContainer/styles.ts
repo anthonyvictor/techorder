@@ -5,7 +5,7 @@ export const LoginRegisterContainerStyle = styled.div`
   align-items: center;
   background-image: url(${backImg});
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-position: center;
   color: ${(props: any) => props.theme.back};
   display: flex;

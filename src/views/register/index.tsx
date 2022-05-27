@@ -7,6 +7,7 @@ import { InitialContainer } from "../../components/containers/initialContainer";
 import { LoginRegisterContainer } from "../../components/containers/loginRegisterContainer";
 import backImg from "../../assets/images/register-background.jpg";
 import { removeAccents } from "../../util/misc";
+import { Link } from "react-router-dom";
 
 export const Register: FC = () => {
   const [name, setName] = useState<string>("");
@@ -276,12 +277,10 @@ export const Register: FC = () => {
           </ButtonMain>
         </form>
         <footer>
-          <p>
-            Already have an account?{" "}
-            <a href="/login" onClick={openLogin}>
-              Sign in
-            </a>
-          </p>
+         <span>
+            <span>Já tem uma conta?</span>
+            <Link to={'/login'}>Entrar</Link>
+         </span>
         </footer>
       </InitialContainer>
     </LoginRegisterContainer>

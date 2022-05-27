@@ -7,13 +7,13 @@ export const InitialContainerStyle = styled.main`
     background-color: ${(props: any) => props.theme.container};
     border-radius: 10px;
     max-height: min(90%, 700px);
-    min-height: 400px;
+    /* min-height: 400px; */
     overflow: auto;
     padding: 10px 20px 10px 20px;
     width: min(80%, 500px);
     transition: all 1s linear;
     box-shadow: 2px 2px 15px rgba(0,0,0,.8);
-    animation: ${rollDown} .5s ease-in-out;
+    animation: ${rollDown()} .5s ease-in-out;
 
     
     header {
@@ -30,9 +30,10 @@ export const InitialContainerStyle = styled.main`
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 30px;
       width: 100%;
       margin-bottom: ${marginSections};
+      /* background-color: red; */
 
       #keep-connected-section {
         display: flex;
@@ -64,6 +65,12 @@ export const InitialContainerStyle = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: 20px;
+
+      >span{
+        display: flex;
+        gap: 5px;
+      }
     }
 
     .techorder-logo{

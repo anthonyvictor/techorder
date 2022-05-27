@@ -5,36 +5,59 @@ export const spin = keyframes`
     100% { transform: rotate(360deg); }
 `
 
-export const rollDown = keyframes`
+type RollProps = {
+    xPos : number 
+}
+
+export const rollDown = (props? : RollProps) => keyframes`
     0% {
-        transform: translateY(-200%);
+        transform: translate(${props?.xPos ? props.xPos : 0}%, -200%);
         opacity: 0%;
      }
     60% {
-        transform: translateY(10%);
+        transform: translate(${props?.xPos ? props.xPos : 0}% 10%);
     }
     80% {
-        transform: translateY(-5%);
+        transform: translate(${props?.xPos ? props.xPos : 0}%, -5%);
     }
     100% {
-        transform: translateY(0%);
+        transform: translate(${props?.xPos ? props.xPos : 0}%, 0%);
         opacity: 100%;
     }
     `
 
-export const rollUp = keyframes`
+export const rollUp = (xPos : string = '0%') => keyframes`
         0% {
-            transform: translateY(200%);
+            transform: translate(${xPos}, 200%);
             opacity: 0%;
          }
         60% {
-            transform: translateY(10%);
+            transform: translate(${xPos}, 10%);
         }
         80% {
-            transform: translateY(-5%);
+            transform: translate(${xPos}, -5%);
         }
         100% {
-            transform: translateY(0%);
+            transform: translate(${xPos}, 0%);
             opacity: 100%;
         }
 `
+
+export const rollDownUp = (props? : RollProps) => keyframes`
+    0% {
+        transform: translate(${props?.xPos ? props.xPos : 0}%, -200%);
+        opacity: 0%;
+    }
+    10% {
+        transform: translate(${props?.xPos ? props.xPos : 0}%, 0%);
+        opacity: 100%;
+    }
+    90% {
+        transform: translate(${props?.xPos ? props.xPos : 0}%, 0%);
+        opacity: 100%;
+    }
+    100% {
+        transform: translate(${props?.xPos ? props.xPos : 0}%, -200%);
+        opacity: 0%;
+    }
+    `

@@ -5,7 +5,7 @@ import { Theme } from "../types/theme";
 interface ILocalContext{
     token: string | null
     setToken: Function
-    theme: Themes.Theme
+    theme: Theme
     setTheme: Function
 }
 
@@ -30,7 +30,7 @@ export const LocalProvider: FC<Props> = ({children}) => {
                 return  Themes[localTheme as keyof typeof Themes]
             }else throw new Error()
         }catch{
-            return Themes.limiar
+            return Themes.panni
         }
     }
 
